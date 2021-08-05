@@ -1,0 +1,4 @@
+include ':server'
+include ':serverclient'
+include ':client'
+rootProject.name = "Android4ComponentThread"
