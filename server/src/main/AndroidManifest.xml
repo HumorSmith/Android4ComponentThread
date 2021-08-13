@@ -17,11 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Android4ComponentThread">
         <service
-            android:name=".service.HelloService"
+            android:name=".service.LoginService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.jhzl.hello" />
+                <action android:name="com.jhzl.server" />
             </intent-filter>
         </service>
 

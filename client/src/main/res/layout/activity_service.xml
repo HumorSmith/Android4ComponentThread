@@ -5,19 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".ServiceActivity">
 
     <Button
         android:id="@+id/test_service_btn"
-        android:text="测试各种Service"
+        android:text="测试Service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <Button
+        android:id="@+id/test_intentService_btn"
+        android:text="测试IntentService"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <Button
-        android:id="@+id/test_content_provider_btn"
-        android:text="测试ContentProvider"
+        android:id="@+id/test_other_process_btn"
+        android:text="测试其他进程服务"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/test_aidl_service_btn"
+        android:text="测试AIDL Service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 
 
 
