@@ -58,15 +58,36 @@ public class TestAIDLServiceActivity extends AppCompatActivity {
         findViewById(R.id.test_aidl_service_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (isServiceConnect){
+                    return;
+                }
                 Intent intent = new Intent();
                 intent.setPackage("com.jhzl.server");
                 intent.setAction("com.jhzl.server");
                 bindService(intent, aidlServiceConnection, Context.BIND_AUTO_CREATE);
             }
         });
+
+        findViewById(R.id.test_recipient_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    mLogin.asBinder().linkToDeath(deathRecipient,0);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
+
+    IBinder.DeathRecipient deathRecipient = new IBinder.DeathRecipient() {
+        @Override
+        public void binderDied() {
+            //死亡时会通知过来，可以在这里做释放或者重连操作
+        }
+    };
 
     private boolean isServiceConnect = false;
     Login mLogin;
@@ -76,7 +97,8 @@ public class TestAIDLServiceActivity extends AppCompatActivity {
             Log.d(TAG,"aidlServiceConnection onServiceConnected =>"+Thread.currentThread().getName());
             isServiceConnect = true;
             mLogin = Login.Stub.asInterface(service);
-             Toast.makeText(TestAIDLServiceActivity.this,"绑定服务成功",Toast.LENGTH_LONG).show();
+            //binder是否还连接着
+            Toast.makeText(TestAIDLServiceActivity.this,"绑定服务成功",Toast.LENGTH_LONG).show();
         }
 
         @Override
