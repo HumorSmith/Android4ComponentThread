@@ -85,6 +85,7 @@ public class TestAIDLServiceActivity extends AppCompatActivity {
     IBinder.DeathRecipient deathRecipient = new IBinder.DeathRecipient() {
         @Override
         public void binderDied() {
+            Log.d(TAG,"binderDied");
             //死亡时会通知过来，可以在这里做释放或者重连操作
         }
     };
@@ -103,6 +104,7 @@ public class TestAIDLServiceActivity extends AppCompatActivity {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
+            Log.d(TAG,"onServiceDisconnected");
             isServiceConnect = false;
         }
     };
