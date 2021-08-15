@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.jhzl.android4componentthread.service.TestAIDLServiceActivity;
 import com.jhzl.android4componentthread.service.TestIntentService;
+import com.jhzl.android4componentthread.service.TestMessengerActivity;
 import com.jhzl.android4componentthread.service.TestProcessService;
 import com.jhzl.android4componentthread.service.TestService;
 import com.jhzl.server.Callback;
@@ -52,6 +53,14 @@ public class ServiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ServiceActivity.this, TestAIDLServiceActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.test_messenger_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ServiceActivity.this, TestMessengerActivity.class);
                 startActivity(intent);
             }
         });

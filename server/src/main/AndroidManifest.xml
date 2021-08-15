@@ -24,6 +24,12 @@
                 <action android:name="com.jhzl.server" />
             </intent-filter>
         </service>
+        <service android:name=".service.MessengerService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.jhzl.messenger" />
+            </intent-filter>
+        </service>
 
         <activity android:name=".MainActivity">
             <intent-filter>

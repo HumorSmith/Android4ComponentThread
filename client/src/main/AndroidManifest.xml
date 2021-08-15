@@ -12,10 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Android4ComponentThread">
+        <activity android:name=".service.TestMessengerActivity"></activity>
+
         <service
             android:name=".service.TestAIDLServiceActivity"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
