@@ -8,7 +8,7 @@
         android:id="@+id/test_aidl_service_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="测试AIDL Service" />
+        android:text="绑定服务" />
 
 
     <Button
@@ -28,4 +28,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="测试DeathRecipient" />
+
+
+    <Button
+            android:id="@+id/test_register_listener_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试注册listener" />
+
+
+    <Button
+            android:id="@+id/test_unregister_listener_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试反注册listener" />
 </LinearLayout>

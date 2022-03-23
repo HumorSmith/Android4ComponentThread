@@ -22,7 +22,22 @@ import com.jhzl.server.Login;
 import com.jhzl.server.User;
 
 public class TestAIDLServiceActivity extends AppCompatActivity {
-    public static final String TAG = TestContentProviderActivity.class.getSimpleName();
+    public static final String TAG = TestAIDLServiceActivity.class.getSimpleName();
+    Callback callback = new Callback.Stub() {
+
+        @Override
+        public void onSuccess(User user) throws RemoteException {
+
+        }
+
+        @Override
+        public void onFailed(int errorCode, String errorMsg) throws RemoteException {
+
+        }
+
+
+    };
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +46,7 @@ public class TestAIDLServiceActivity extends AppCompatActivity {
         findViewById(R.id.test_login_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isServiceConnect){
+                if (isServiceConnect) {
                     try {
                         User user = new User();
                         user.setName("xiaohuihui");
@@ -58,9 +73,6 @@ public class TestAIDLServiceActivity extends AppCompatActivity {
         findViewById(R.id.test_aidl_service_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isServiceConnect){
-                    return;
-                }
                 Intent intent = new Intent();
                 intent.setPackage("com.jhzl.server");
                 intent.setAction("com.jhzl.server");
@@ -71,8 +83,45 @@ public class TestAIDLServiceActivity extends AppCompatActivity {
         findViewById(R.id.test_recipient_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isServiceConnect) {
+                    return;
+                }
                 try {
-                    mLogin.asBinder().linkToDeath(deathRecipient,0);
+                    mLogin.asBinder().unlinkToDeath(new IBinder.DeathRecipient() {
+                        @Override
+                        public void binderDied() {
+
+                        }
+                    }, 0);
+                    mLogin.asBinder().linkToDeath(deathRecipient, 0);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        findViewById(R.id.test_register_listener_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isServiceConnect) {
+                    return;
+                }
+                try {
+                    mLogin.registerListener(callback);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        findViewById(R.id.test_unregister_listener_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isServiceConnect) {
+                    return;
+                }
+                try {
+                    mLogin.unRegisterListener(callback);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
@@ -85,7 +134,7 @@ public class TestAIDLServiceActivity extends AppCompatActivity {
     IBinder.DeathRecipient deathRecipient = new IBinder.DeathRecipient() {
         @Override
         public void binderDied() {
-            Log.d(TAG,"binderDied");
+            Log.d(TAG, "binderDied");
             //死亡时会通知过来，可以在这里做释放或者重连操作
         }
     };
@@ -95,16 +144,16 @@ public class TestAIDLServiceActivity extends AppCompatActivity {
     private ServiceConnection aidlServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.d(TAG,"aidlServiceConnection onServiceConnected =>"+Thread.currentThread().getName());
+            Log.d(TAG, "aidlServiceConnection onServiceConnected =>" + Thread.currentThread().getName());
             isServiceConnect = true;
             mLogin = Login.Stub.asInterface(service);
             //binder是否还连接着
-            Toast.makeText(TestAIDLServiceActivity.this,"绑定服务成功",Toast.LENGTH_LONG).show();
+            Toast.makeText(TestAIDLServiceActivity.this, "绑定服务成功", Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Log.d(TAG,"onServiceDisconnected");
+            Log.d(TAG, "onServiceDisconnected");
             isServiceConnect = false;
         }
     };

@@ -24,6 +24,7 @@ public class TestProvider extends ContentProvider {
     // UriMatcher类使用:在ContentProvider 中注册URI
     private static final UriMatcher mMatcher;
     static{
+        Log.d(TAG,"STATIC");
         mMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         // 初始化
         mMatcher.addURI(AUTOHORITY,"user", User_Code);
@@ -39,7 +40,7 @@ public class TestProvider extends ContentProvider {
      */
     @Override
     public boolean onCreate() {
-
+        Log.d(TAG,"onCreate");
         mContext = getContext();
         // 在ContentProvider创建时对数据库进行初始化
         // 运行在主线程，故不能做耗时操作,此处仅作展示

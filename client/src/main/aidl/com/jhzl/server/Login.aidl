@@ -6,4 +6,6 @@ import com.jhzl.server.Callback;
 
 interface Login {
     void login(in User stu,in Callback call);
+    void registerListener(in Callback call);
+    void unRegisterListener(in Callback call);
 }
